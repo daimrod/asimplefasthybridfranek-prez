@@ -1,0 +1,131 @@
+I) Rappel KMP et BM
+  1 - KMP
+La particularité de KMP est d'effectuer un pré-traitement sur la chaîne recherchée pour déterminer où reprendre la recherche en cas de non-correspondance.
+
+Pour :
+ - Independance par rapport à la taille de l'alphabet
+ - Pire des cas linéaire à la taille de la chaîne
+Contre :
+
+Exemple wikipedia :
+
+              1         2
+    01234567890123456789012
+m : v
+S : ABC ABCDAB ABCDABCDABDE
+P : ABCDABD
+i : ^
+    0123456
+L'algorithme démarre en testant la correspondance des caractères les uns après les autres. Ainsi, à la quatrième étape, m = 0 et i = 3. S[3] est un espace et P[3] = 'D', la correspondance n'est pas possible.
+              1         2
+    01234567890123456789012
+m : v
+S : ABC ABCDAB ABCDABCDABDE
+P : ABCDABD
+i :    ^
+    0123456
+Plutôt que de recommencer avec m = 1, l'algorithme remarque qu'aucun A n'est présent dans P entre les positions 0 et 3, à l'exception de la position 0. En conséquence, pour avoir testé tous les caractères précédents, l'algorithme sait qu'il n'a aucune chance de trouver le début d'une correspondance s'il vérifie à nouveau. De ce fait, l'algorithme avance jusqu'au caractère suivant, en posant m = 4 et  i = 0.
+              1         2
+    01234567890123456789012
+m :     v
+S : ABC ABCDAB ABCDABCDABDE
+P :     ABCDABD
+i :     ^
+        0123456
+Une correspondance presque complète est rapidement obtenue quand, avec i = 6, la vérification échoue.
+              1         2
+    01234567890123456789012
+m :     v
+S : ABC ABCDAB ABCDABCDABDE
+P :     ABCDABD
+i :           ^
+        0123456
+Toutefois, juste avant la fin de cette correspondance partielle, l'algorithme est passé sur le motif AB, qui pourrait correspondre au début d'une autre correspondance. Cette information doit donc être prise en compte. Comme l'algorithme sait déjà que ces deux premiers caractères correspondent avec les deux caractères précédant la position courante, il n'est pas nécessaire de les revérifier. Ainsi, l'algorithme reprend son traitement au caractère courant, avec m = 8 et i = 2.
+              1         2
+    01234567890123456789012
+m :         v
+S : ABC ABCDAB ABCDABCDABDE
+P :         ABCDABD
+i :           ^
+            0123456
+Cette vérification échoue immédiatement (C ne correspond pas avec l'espace en S[10]). Comme la chaîne ne contient aucun espace (comme dans la première étape), l'algorithme poursuit la recherche avec m = 11 et en réinitialisant i = 0.
+              1         2
+    01234567890123456789012
+m :            v
+S : ABC ABCDAB ABCDABCDABDE
+P :            ABCDABD
+i :            ^
+               0123456
+À nouveau, l'algorithme trouve une correspondance partielle ABCDAB, mais le caractère suivant C ne correspond pas au caractère final D de la chaîne.
+              1         2
+    01234567890123456789012
+m :            v
+S : ABC ABCDAB ABCDABCDABDE
+P :            ABCDABD
+i :                  ^
+               0123456
+Avec le même raisonnement que précédemment, l'algorithme reprend avec m = 15, pour démarrer à la chaîne de deux caractères AB menant à la position courante, en fixant i = 2, nouvelle position courante.
+              1         2
+    01234567890123456789012
+m :                v
+S : ABC ABCDAB ABCDABCDABDE
+P :                ABCDABD
+i :                  ^
+                   0123456
+Cette fois, la correspondance est complète, l'algorithme retourne la position 15 (c'est-à-dire m) comme origine.
+              1         2
+    01234567890123456789012
+m :                v
+S : ABC ABCDAB ABCDABCDABDE
+P :                ABCDABD
+i :                      ^
+                   0123456
+
+  2 - BM
+La particularité de BM est d'effectuer un pré-traitement sur la chaîne recherchée pour créer une table de saut. La comparaison commence par la dernière lettre de la chaîne, et on décalle la comparaison en fonction de la table de saut. 
+
+Pour :
+ - L'algo peut être sous linéaire en sautant plein de position
+ - Plus performant avec une longue chaîne
+Contre :
+ - Perte de performance avec une chaîne courte
+
+Avec l’algorithme de Boyer-Moore, on recherchera aussi les occurrences depuis le début du texte (en affichant ci-dessous la clé cherchée en dessous du texte balayé, les points notés avant la clé indiquant les positions déjà éliminées, le surlignage indique les comparaisons effectuées), mais on commencera en comparant le dernier caractère de la clé cherchée :
+
+     v
+stupid_spring_string
+string
+     ^
+
+Les deux caractères d et g ne correspondent pas, on a trouvé à la place un d dans le texte, alors qu’il n’y a aucun d dans la clé. On peut sauter directement dans le texte les 6 caractères de la clé :
+
+           v
+stupid_spring_string
+      string
+           ^
+
+Le g de la clé ne correspond pas au n du texte. Cependant, la clé contient un n, 1 caractère avant, on peut donc décaler d’1 position, et vérifier à nouveau en commençant par la fin de clé :
+
+        v____
+stupid_spring_string
+       string
+        ^____
+
+On a trouvé successivement la correspondance du g, puis du n, puis du i, puis du r, mais pas du t de la clé. Au lieu de cela on a trouvé un p dans le texte, qui ne figure pas dans la clé, ce qui permet de sauter directement dans le texte les 6 caractères de la clé :
+
+                  v
+stupid_spring_string
+             string
+                  ^
+
+Le g de la clé ne correspond pas au n du texte. Cependant, la clé contient un n, 1 caractère avant, on peut donc décaler d’1 position, et vérifier à nouveau en commençant par la fin de clé :
+
+              ______
+stupid_spring_string
+              string
+              ______
+
+On trouve successivement les correspondances du g, puis du n, du i, du r, du t et du s. Il n'y a plus d’autre caractère dans la clé, on a bien trouvé une occurrence en seulement 9 comparaisons (au lieu de 23 avec l’algorithme classique). Si on devait chercher les occurrences suivantes, il suffit de reprendre l’algorithme dans le texte à partir de la position qui suit la position trouvée.
+
+  Résumé
+Pire des cas pas trop chiant avec KMP, et temps moyen top moumouth avec BM
