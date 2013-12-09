@@ -38,7 +38,7 @@ Boyer-Moore (BM).
 
 Comme dit précédemment, les algorithmes KMP et BM appartiennent à la
 grande famille des algorithmes résolvant le problème de recherche de
-motif. De part leur manière d'aborder ce problème, on dit qu'ils
+motif. De par leur manière d'aborder ce problème, on dit qu'ils
 appartiennent à la sous-famille des algorithmes basés sur la
 reconnaissance de caractères. 
 
@@ -46,14 +46,14 @@ Les autres approches communément employées sont les algorithmes basés
 sur automates déterministes, et les algorithmes basés sur le
 parallélisme de bits simulant des automates non-déterministes.
 
-À première vu, on pourrait se demander pourquoi il existe autant de
+À première vue, on pourrait se demander pourquoi il existe autant de
 variations autour du même problème, clairement défini, alors que les
 limites théoriques sont déjà connues.
 
 Cela tient au fait que ces algorithmes sont très utilisés dans des
 conditions différentes, que ce soit en Traitement Automatique des
 Langues afin de rechercher un mot dans un texte en langage naturel, ou
-en Bio-Informatique afin de rechercher une séquence de gène dans
+en Bio-Informatique afin de rechercher une séquence de gêne dans
 l'ADN.
 
 Selon le cas d'utilisation, la taille des motifs recherchés et la
@@ -68,15 +68,15 @@ parallélisable, sur des machines multi-CPUs.
 
 * Rappel sur KMP et BM
 Comme la plupart des algorithmes de recherche de chaîne, les
-algorithmes KMP et BM effectuent un pré-traitement sur le motif. Le
+algorithmes KMP et BM effectuent un prétraitement sur le motif. Le
 but est d'extraire le maximum d'informations afin d'accélérer la
 recherche du motif en minimisant le nombre de comparaison de
 caractères.
 
 ** Knuth-Morris-Pratt
-Le pré-traitement de l'algorithme KMP vise à extraire les sous-chaînes
+Le prétraitement de l'algorithme KMP vise à extraire les sous-chaînes
 les plus longues du motif qui s'aligne avec un préfixe du motif. Par
-exmple dans le motif "ABCDABD", on remarque que la sous-chaînes "AB"
+exemple dans le motif "ABCDABD", on remarque que la sous-chaînes "AB"
 se trouve en ~P[1..2]~ et en ~P[5..6]~. Cette information permet de ne
 pas reprendre la recherche à zéro si une comparaison échoue en ~P[7]~.
 
@@ -85,7 +85,7 @@ pas reprendre la recherche à zéro si une comparaison échoue en ~P[7]~.
 Bien que le motif avance de gauche à droite, l'algorithme BM compare
 le motif de droite à gauche, contrairement à l'algorithme KMP qui le
 comparait de gauche à droite. Cette particularité permet à
-l'algorithme BM de ne pas avoir à comporer tous les caractères du
+l'algorithme BM de ne pas avoir à comparer tous les caractères du
 texte dans certain cas.
 
 « more example »
@@ -102,15 +102,15 @@ cas plus faible que celle de l'algorithme BM, tout minimisant la
 complexité moyenne afin de se rapprocher de celle de l'algorithme BM.
 
 Pour cela, l'algorithme FJS garde l'approche de base de l'algorithme
-KMP. C'est à dire que le motif est comparè de gauche à droite, et,
-dans le cas où une occurence partielle a été trouvé, on effectue un
+KMP. C'est à dire que le motif est comparé de gauche à droite, et,
+dans le cas où une occurrence partielle a été trouvé, on effectue un
 décalage en utilisant l'approche de l'algorithme KMP. La différence se
 situe dans le cas où deux caractères différents sont trouvés et qu'il
-n'y pas d'occurence partielle. Dans ce cas, on effectue un décallage
+n'y pas d'occurrence partielle. Dans ce cas, on effectue un décalage
 de Sunday (~Sunday's shift~).
 
 ** Variation de Sunday
-Le décallage de Sunday (~Sunday's shift~ en anglais) est une variation
+Le décalage de Sunday (~Sunday's shift~ en anglais) est une variation
 astucieuse de la règle du mauvais caractère de l'algorithme BM qui a
 été introduit Sunday dans l'algorithme Boyer-Moore-Sunday (BMS).
 
@@ -125,13 +125,13 @@ Alors que l'algorithme de Boyer-Moore aligne le motif par rapport
 mauvais caractère rencontré, la variation de Sunday utilise le
 caractère situé juste en dehors de la fenêtre actuellement observée.
 C'est ce qui permet d'effectuer un saut si important, car, durant la
-phase de pré-traitement, l'algorithme a remarqué qu'il n'y avait pas
+phase de prétraitement, l'algorithme a remarqué qu'il n'y avait pas
 de 'd' dans le motif, c'est pourquoi il peut décaler le motif de toute
 sa longueur.
 
 ** Décalage de Sunday dans FJS
 L'algorithme FJS va donc utiliser la variation de Sunday pour
-effectuer un décalage dans le cas où aucune occurence partielle du
+effectuer un décalage dans le cas où aucune occurrence partielle du
 motif n'a été trouvée. Pour cela, l'algorithme va comparer le dernier
 caractère du motif et, soit effectuer un décalage de Sunday si les
 caractères sont différents, soit appliquer l'algorithme KMP classique
@@ -160,7 +160,7 @@ rapides.
   complexité dans le pire cas est supérieur, mais ce cas reste
   particulièrement rare.
 
-- L'algorithme de Sunday (BMS), qui a déjà été présenté précédement.
+- L'algorithme de Sunday (BMS), qui a déjà été présenté précédemment.
 
 - L'algorithme Reverse Colussi (RC), qui se base lui aussi sur
   l'algorithme BM. La différence est que le prétraitement permet de
@@ -177,14 +177,14 @@ On peut déjà faire remarquer que seul l'algorithme TBM permet, comme
 FJS, une complexité dans le pire cas en O(n).
 
 Pour pouvoir comparer proprement les différents algorithmes, ils ont
-tous été implémentés en C. Des précautions particulières ont été prise
-pour empécher des optimisations automatiques des compilateurs ou
+tous été implémentés en C. Des précautions particulières ont été prises
+pour empêcher des optimisations automatiques des compilateurs ou
 autres éléments externe, afin d'assurer des résultats justes.
 
-Pour mesurer le temps d'exécution d'un algorithme, il est executé 20
+Pour mesurer le temps d'exécution d'un algorithme, il est exécuté 20
 fois et son exécution la plus rapide est gardée comme temps de
-référence. L'ensemble des algorithmes sont bien entendu exécuté sur la
-même machine. Les résultats présentés sont obtenus sur une seul
+référence. L'ensemble des algorithmes sont bien entendu exécutés sur la
+même machine. Les résultats présentés sont obtenus sur une seule
 machine en particulier mais ils nous assurent que les résultats sont
 stables sur une grande variété de machines ou de systèmes
 d'exploitations différents.
@@ -201,12 +201,12 @@ l'autre avec l'alphabet de l'ADN.
   10 115 lettres à 4 823 268 lettres.
 
   Pour ce corpus, les expérimentations ont été menées avec des motifs
-  recherchés apparaissant très fréquement, et d'autre avec des motifs
+  recherchés apparaissant très fréquemment, et d'autre avec des motifs
   moins communs pour étudier l'impact de la découverte d'un motif complet.
 
   - Le second corpus sur l'ADN est extrait du Human Genome Project. Seul
   les chaînes purement ADN ont été conservées afin de pouvoir travailler
-  sur l'alphabet des nucleotides (A, T, C et G) uniquement. Le corpus
+  sur l'alphabet des nucléotides (A, T, C et G) uniquement. Le corpus
   est ensuite traduit en binaire (A = 00, T = 01, ...) afin de pouvoir
   extraire des alphabets de taille variable en faisant varier le nombre de
   bits par lettre.
@@ -218,7 +218,7 @@ plusieurs variations :
   - En faisant varier la taille du texte d'une longueur de 0 à 2 millions
   de lettre, et en cherchant d'abord des motifs fréquents puis des
   motifs moins fréquents. On constate que l'algorithme FJS est le meilleur
-  bien que quasiement équivalent à BMS et RC.
+  bien que quasiment équivalent à BMS et RC.
 
   - En faisant varier la taille du motif de 3 à 9 lettres et en recherchant
   sur l'ensemble du corpus, on constate que l'algorithme FJS est encore une
@@ -232,7 +232,7 @@ retrouve les 3 algorithmes habituels en tête avec FJS, BMS et RC. Cependant,
 en continuant d'agrandir l'alphabet, l'algorithme RC devient de moins en moins
 performant jusqu'à devenir dernier avec une taille supérieures à 30.
 
-Une étude supplémenaire a été menée sur des cas particuliers :
+Une étude supplémentaire a été menée sur des cas particuliers :
   - Le pire cas de recherche de chaîne, avec T = a^n et P = aba. L'algorithme FJS
   se retrouve alors en quatrième position avec un temps d'exécution moyen 41%
   supérieur à l'algorithme RC classé premier.
