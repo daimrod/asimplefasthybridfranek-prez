@@ -36,36 +36,6 @@ dont l'algorithme FJS décrit dans l'article étudié. Ces deux
 algorithmes sont l'algorithme Knut-Morris-Pratt (KMP) et l'algorithme
 Boyer-Moore (BM).
 
-Comme dit précédemment, les algorithmes KMP et BM appartiennent à la
-grande famille des algorithmes résolvant le problème de recherche de
-motif. De par leur manière d'aborder ce problème, on dit qu'ils
-appartiennent à la sous-famille des algorithmes basés sur la
-reconnaissance de caractères. 
-
-Les autres approches communément employées sont les algorithmes basés
-sur automates déterministes, et les algorithmes basés sur le
-parallélisme de bits simulant des automates non-déterministes.
-
-À première vue, on pourrait se demander pourquoi il existe autant de
-variations autour du même problème, clairement défini, alors que les
-limites théoriques sont déjà connues.
-
-Cela tient au fait que ces algorithmes sont très utilisés dans des
-conditions différentes, que ce soit en Traitement Automatique des
-Langues afin de rechercher un mot dans un texte en langage naturel, ou
-en Bio-Informatique afin de rechercher une séquence de gêne dans
-l'ADN.
-
-Selon le cas d'utilisation, la taille des motifs recherchés et la
-taille de l'alphabet vont varier. Or, ceux sont deux critères qui
-peuvent grandement influencer l'efficacité des algorithmes.
-
-Enfin, au vu des progrès fait dans la conception des CPUs, en
-particulier l'accumulation de CPUs dans une même machine, fait que
-certaines approches qui n'étaient pas intéressantes sur des machines
-mono-CPU, deviennent très intéressantes, car facilement
-parallélisable, sur des machines multi-CPUs.
-
 * Rappel sur KMP et BM
 Comme la plupart des algorithmes de recherche de chaîne, les
 algorithmes KMP et BM effectuent un prétraitement sur le motif. Le
@@ -277,4 +247,34 @@ ASCII dans un texte en Unicode en se basant uniquement sur l’alphabet de 256 c
 du motif. L’algorithme peut alors fournir des performances identique à une recherche
 sur un texte entièrement en ASCII.
 
-* Back to the Future POV
+* Conclusion
+
+Comme dit précédemment, les algorithmes KMP et BM appartiennent à la
+grande famille des algorithmes résolvant le problème de recherche de
+motif. De par leur manière d'aborder ce problème, on dit qu'ils
+appartiennent à la sous-famille des algorithmes basés sur la
+reconnaissance de caractères. 
+
+Les autres approches communément employées sont les algorithmes basés
+sur automates déterministes, et les algorithmes basés sur le
+parallélisme de bits simulant des automates non-déterministes.
+
+À première vue, on pourrait se demander pourquoi il existe autant de
+variations autour du même problème, clairement défini, alors que les
+limites théoriques sont déjà connues.
+
+Cela tient au fait que ces algorithmes sont très utilisés dans des
+conditions différentes, que ce soit en Traitement Automatique des
+Langues afin de rechercher un mot dans un texte en langage naturel, ou
+en Bio-Informatique afin de rechercher une séquence de gêne dans
+l'ADN.
+
+Selon le cas d'utilisation, la taille des motifs recherchés et la
+taille de l'alphabet vont varier. Or, ceux sont deux critères qui
+peuvent grandement influencer l'efficacité des algorithmes.
+
+Enfin, au vu des progrès fait dans la conception des CPUs, en
+particulier l'accumulation de CPUs dans une même machine, fait que
+certaines approches qui n'étaient pas intéressantes sur des machines
+mono-CPU, deviennent très intéressantes, car facilement
+parallélisable, sur des machines multi-CPUs.
