@@ -195,34 +195,34 @@ d'exploitations différents.
 l'autre avec l'alphabet de l'ADN.
 
   - Le corpus de texte est celui du Project Gutenberd qui contient 2434
-  textes libres. Pour ces tests, seulement 1000 textes ont été
-  sélectionnés au hasard. Ce qui représente au final un corpus de
-  446 504 073 lettres réparties dans des textes de tailles allant de
-  10 115 lettres à 4 823 268 lettres.
+    textes libres. Pour ces tests, seulement 1000 textes ont été
+    sélectionnés au hasard. Ce qui représente au final un corpus de
+    446 504 073 lettres réparties dans des textes de tailles allant de
+    10 115 lettres à 4 823 268 lettres.
 
-  Pour ce corpus, les expérimentations ont été menées avec des motifs
-  recherchés apparaissant très fréquemment, et d'autre avec des motifs
-  moins communs pour étudier l'impact de la découverte d'un motif complet.
+    Pour ce corpus, les expérimentations ont été menées avec des motifs
+    recherchés apparaissant très fréquemment, et d'autre avec des motifs
+    moins communs pour étudier l'impact de la découverte d'un motif complet.
 
   - Le second corpus sur l'ADN est extrait du Human Genome Project. Seul
-  les chaînes purement ADN ont été conservées afin de pouvoir travailler
-  sur l'alphabet des nucléotides (A, T, C et G) uniquement. Le corpus
-  est ensuite traduit en binaire (A = 00, T = 01, ...) afin de pouvoir
-  extraire des alphabets de taille variable en faisant varier le nombre de
-  bits par lettre.
+    les chaînes purement ADN ont été conservées afin de pouvoir travailler
+    sur l'alphabet des nucléotides (A, T, C et G) uniquement. Le corpus
+    est ensuite traduit en binaire (A = 00, T = 01, ...) afin de pouvoir
+    extraire des alphabets de taille variable en faisant varier le nombre de
+    bits par lettre.
 
 ** Résultats
 
 Les expérimentations menées sur le corpus Gutenberd ont permis d'isoler
 plusieurs variations :
   - En faisant varier la taille du texte d'une longueur de 0 à 2 millions
-  de lettre, et en cherchant d'abord des motifs fréquents puis des
-  motifs moins fréquents. On constate que l'algorithme FJS est le meilleur
-  bien que quasiment équivalent à BMS et RC.
+    de lettre, et en cherchant d'abord des motifs fréquents puis des
+    motifs moins fréquents. On constate que l'algorithme FJS est le meilleur
+    bien que quasiment équivalent à BMS et RC.
 
   - En faisant varier la taille du motif de 3 à 9 lettres et en recherchant
-  sur l'ensemble du corpus, on constate que l'algorithme FJS est encore une
-  fois le meilleur suivi de près par BMS.
+    sur l'ensemble du corpus, on constate que l'algorithme FJS est encore une
+    fois le meilleur suivi de près par BMS.
 
 Le corpus ADN a permis d'étudier les variations de taille sur l'alphabet. On
 constate alors des résultats très différents des précédents. En effet, pour
@@ -234,16 +234,16 @@ performant jusqu'à devenir dernier avec une taille supérieures à 30.
 
 Une étude supplémentaire a été menée sur des cas particuliers :
   - Le pire cas de recherche de chaîne, avec T = a^n et P = aba. L'algorithme FJS
-  se retrouve alors en quatrième position avec un temps d'exécution moyen 41%
-  supérieur à l'algorithme RC classé premier.
+    se retrouve alors en quatrième position avec un temps d'exécution moyen 41%
+    supérieur à l'algorithme RC classé premier.
 
   - Le cas où le motif est trouvé à toutes les positions, avec T = a^n et P = a^m.
-  L'algorithme FJS donne alors les meilleurs performances, constantes malgré
-  les modifications de la taille du motif.
+    L'algorithme FJS donne alors les meilleurs performances, constantes malgré
+    les modifications de la taille du motif.
 
   - Le pire cas spécifique pour l'algorithme BM original. Encore une fois, FJS
-  termine en tête des tests avec un écart qui se creuse lorsque l'on agrandi
-  le motif.
+    termine en tête des tests avec un écart qui se creuse lorsque l'on agrandi
+    le motif.
 
 * Améliorations et variantes autour de FJS
 
