@@ -138,7 +138,7 @@ caractères sont différents, soit appliquer l'algorithme KMP classique
 si les deux caractères correspondent.
 
 ** L'algorithme FJS
-
+En pratique, voilà comment l'algorithme FJS fonctionne.
 #+ATTR_LATEX: :align ccccccccccccccc
 | a                   | b                   | a                   | b                   | a                   | a                   | c                  | a                   | b                   | a                   | b                   | a                   | c                   | c                  |
 | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{orange}c | \cellcolor{green}c |                     |                     |                     |                     |                     |                     |                    |
@@ -194,35 +194,35 @@ d'exploitations différents.
 2 corpus bien différent ont été utilisés, l'un en texte normal et
 l'autre avec l'alphabet de l'ADN.
 
-  - Le corpus de texte est celui du Project Gutenberd qui contient 2434
+- Le corpus de texte est celui du Project Gutenberd qui contient 2434
   textes libres. Pour ces tests, seulement 1000 textes ont été
-  sélectionnés au hasard. Ce qui représente au final un corpus de
-  446 504 073 lettres réparties dans des textes de tailles allant de
-  10 115 lettres à 4 823 268 lettres.
+  sélectionnés au hasard. Ce qui représente au final un corpus de 446
+  504 073 lettres réparties dans des textes de tailles allant de 10
+  115 lettres à 4 823 268 lettres.
 
   Pour ce corpus, les expérimentations ont été menées avec des motifs
   recherchés apparaissant très fréquement, et d'autre avec des motifs
   moins communs pour étudier l'impact de la découverte d'un motif complet.
 
-  - Le second corpus sur l'ADN est extrait du Human Genome Project. Seul
-  les chaînes purement ADN ont été conservées afin de pouvoir travailler
-  sur l'alphabet des nucleotides (A, T, C et G) uniquement. Le corpus
-  est ensuite traduit en binaire (A = 00, T = 01, ...) afin de pouvoir
-  extraire des alphabets de taille variable en faisant varier le nombre de
-  bits par lettre.
+- Le second corpus sur l'ADN est extrait du Human Genome Project. Seul
+  les chaînes purement ADN ont été conservées afin de pouvoir
+  travailler sur l'alphabet des nucleotides (A, T, C et G) uniquement.
+  Le corpus est ensuite traduit en binaire (A = 00, T = 01, ...) afin
+  de pouvoir extraire des alphabets de taille variable en faisant
+  varier le nombre de bits par lettre.
 
 ** Résultats
 
 Les expérimentations menées sur le corpus Gutenberd ont permis d'isoler
 plusieurs variations :
-  - En faisant varier la taille du texte d'une longueur de 0 à 2 millions
-  de lettre, et en cherchant d'abord des motifs fréquents puis des
-  motifs moins fréquents. On constate que l'algorithme FJS est le meilleur
-  bien que quasiement équivalent à BMS et RC.
+- En faisant varier la taille du texte d'une longueur de 0 à 2
+  millions de lettre, et en cherchant d'abord des motifs fréquents
+  puis des motifs moins fréquents. On constate que l'algorithme FJS
+  est le meilleur bien que quasiement équivalent à BMS et RC.
 
-  - En faisant varier la taille du motif de 3 à 9 lettres et en recherchant
-  sur l'ensemble du corpus, on constate que l'algorithme FJS est encore une
-  fois le meilleur suivi de près par BMS.
+- En faisant varier la taille du motif de 3 à 9 lettres et en
+  recherchant sur l'ensemble du corpus, on constate que l'algorithme
+  FJS est encore une fois le meilleur suivi de près par BMS.
 
 Le corpus ADN a permis d'étudier les variations de taille sur l'alphabet. On
 constate alors des résultats très différents des précédents. En effet, pour
@@ -233,17 +233,18 @@ en continuant d'agrandir l'alphabet, l'algorithme RC devient de moins en moins
 performant jusqu'à devenir dernier avec une taille supérieures à 30.
 
 Une étude supplémenaire a été menée sur des cas particuliers :
-  - Le pire cas de recherche de chaîne, avec T = a^n et P = aba. L'algorithme FJS
-  se retrouve alors en quatrième position avec un temps d'exécution moyen 41%
-  supérieur à l'algorithme RC classé premier.
+- Le pire cas de recherche de chaîne, avec T = a^n et P = aba.
+  L'algorithme FJS se retrouve alors en quatrième position avec un
+  temps d'exécution moyen 41% supérieur à l'algorithme RC classé
+  premier.
 
-  - Le cas où le motif est trouvé à toutes les positions, avec T = a^n et P = a^m.
-  L'algorithme FJS donne alors les meilleurs performances, constantes malgré
-  les modifications de la taille du motif.
+- Le cas où le motif est trouvé à toutes les positions, avec T = a^n et
+  P = a^m. L'algorithme FJS donne alors les meilleurs performances,
+  constantes malgré les modifications de la taille du motif.
 
-  - Le pire cas spécifique pour l'algorithme BM original. Encore une fois, FJS
-  termine en tête des tests avec un écart qui se creuse lorsque l'on agrandi
-  le motif.
+- Le pire cas spécifique pour l'algorithme BM original. Encore une
+  fois, FJS termine en tête des tests avec un écart qui se creuse
+  lorsque l'on agrandi le motif.
 
 * Améliorations et variantes autour de FJS
 
