@@ -26,7 +26,7 @@ informatique, est le suivant:
 
 #+BEGIN_QUOTE
 Soit un texte T de longueur n et un motif P de longueur m tous deux
-écrit dans un alphabet \Sigma de taille k, on cherche toutes les occurences
+écrit dans un alphabet \Sigma de taille k, on cherche toutes les occurrences
 exactes du motif dans le texte.
 #+END_QUOTE
 
@@ -96,6 +96,53 @@ texte dans certain cas.
 * Présentation de l'algorithme FJS
 
 * Présentation et explication des résultats
+
+** Méthode expérimentale
+
+Les mesures expérimentales des performances de FJS reposent principalement
+sur la comparaison avec 4 autres algorithmes connus comme étant les plus
+rapides.
+
+  - L'algorithme de Horspool (BMH), qui est une simplification de
+  l'algorithme BM. Il permet d'obtenir la même complexité dans le meilleur
+  cas et une complexité moyenne plus faible. Cependant, la complexité dans
+  le pire cas est supérieur, mais ce cas reste particulièrement rare.
+
+  - L'algorithme de Sunday (BMS), qui a déjà été présenté précédement.
+
+  - L'algorithme Reverse Colussi (RC), qui se base lui aussi sur
+  l'algorithme BM. La différence est que le prétraitement permet de définir
+  un ordre optimal dans lequel comparer le motif recherché, plutôt que
+  simplement de gauche à droite ou inversement.
+
+  - L'algorithme Turbo-BM (TBM). Il s'agit encore une fois d'une variante de
+  l'algorithme BM. Il ne nécessite pas de prétraitement supplémentaire mais
+  la variation repose sur la mémorisation des caractères du texte déjà
+  comparés afin de pouvoir sauter des comparaisons inutiles.
+
+On peut déjà faire remarquer que seul l'algorithme TBM permet, comme FJS,
+une complexité dans le pire cas en O(n).
+
+Pour pouvoir comparer proprement les différents algorithmes, ils ont tous été
+implémentés en C. Des précautions particulières ont été prise pour empécher
+des optimisations automatiques des compilateurs ou autres éléments externe,
+afin d'assurer des résultats justes.
+
+Pour mesurer le temps d'exécution d'un algorithme, il est executé 20 fois et
+son exécution la plus rapide est gardée comme temps de référence. L'ensemble
+des algorithmes sont bien entendu exécuté sur la même machine. Les résultats
+présentés sont obtenus sur une seul machine en particulier mais ils nous
+assurent que les résultats sont stables sur une grande variété de machines ou
+de systèmes d'exploitations différents.
+
+** Données utilisées
+
+Le corpus utilisé pour les expériences est celui du Project Gutenberd qui
+contient 2434 textes libres. Pour ces tests, seulement 1000 textes ont été
+sélectionnés au hasard. Ce qui représente au final un corpus de 446 504 073
+lettres réparties dans des textes de tailles allant de 10 115 lettres à
+4 823 268 lettres.
+
 
 * Améliorations et variantes autour de FJS
 
