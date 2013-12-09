@@ -94,6 +94,20 @@ texte dans certain cas.
 
 
 * Présentation de l'algorithme FJS
+L'algorithme FJS est un mixte entre l'algorithme KMP et une variation
+de BM appelée Boyer-Moore-Sunday (BMS).
+
+Le but de cette variation est d'avoir une complexité dans le pire des
+cas plus faible que celle de l'algorithme BM, tout minimisant la
+complexité moyenne afin de se rapprocher de celle de l'algorithme BM.
+
+Pour cela, l'algorithme FJS garde l'approche de base de l'algorithme
+KMP. C'est à dire que le motif est comparè de gauche à droite, et,
+dans le cas où une occurence partielle a été trouvé, on effectue un
+décalage en utilisant l'approche de l'algorithme KMP. La différence se
+situe dans le cas où deux caractères différents sont trouvés et qu'il
+n'y pas d'occurence partielle. Dans ce cas, on effectue un décallage
+de Sunday (Sunday's shift).
 
 * Présentation et explication des résultats
 
