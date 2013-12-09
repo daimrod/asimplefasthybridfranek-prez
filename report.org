@@ -247,4 +247,34 @@ Une étude supplémentaire a été menée sur des cas particuliers :
 
 * Améliorations et variantes autour de FJS
 
+** Gestion des caractères génériques
+
+L'une des variations les plus intéressantes est le support des caractères génériques
+qui peuvent correspondre alors à n'importe quelle lettre de l’alphabet ou à un
+sous-ensemble. Pour traiter ce genre de recherche, il existe alors deux catégories :
+  - Indéterminée : Le caractère générique n’est pas obligé de correspondre toujours
+    à la même lettre pour un même motif comparé. Par exemple *T*L peut correspondre à ATOL.
+
+  - Déterminée : Il s’agit du cas inverse. Le caractère générique doit correspondre
+    à une même lettre pour  un motif donné. ATOL ne correspond alors plus, mais ATAL oui.
+
+Que ce soit pour des recherches déterminées ou indéterminées, il est fréquent que
+les algorithmes basés sur BM soit les plus performants. L’algorithme FJS appartient
+donc à cette catégorie mais une étude approfondie serait nécessaire pour donner
+des résultats concrets.
+
+** Gestion des alphabets étendus
+
+La plupart des textes utilisent un alphabet pouvant être encodé sur 8 bits. Cependant,
+l'utilisation de caractères spéciaux peut entraîner l'utilisation de l'Unicode et donc
+d'un alphabet sur 16 voire 32 bits. Le temps de prétraitement d’un tel alphabet réduit
+alors à néant toutes les tentatives d’optimisation de la recherche.
+
+L’une des méthodes proposées est de réduire l’alphabet à celui utilisé dans le motif
+et définir tous les autres caractères du texte comme incompatible et donc sans
+correspondance. Cette méthode permet alors de rechercher une chaine de caractère
+ASCII dans un texte en Unicode en se basant uniquement sur l’alphabet de 256 caractères
+du motif. L’algorithme peut alors fournir des performances identique à une recherche
+sur un texte entièrement en ASCII.
+
 * Back to the Future POV
