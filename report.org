@@ -1,5 +1,5 @@
 #+TITLE: A Simple Fast Hybrid Pattern-Matching Algorithm
-#+DATE: <2013-12-08 Sun>
+#+DATE: \date{}
 #+AUTHOR: Grégoire Jadi \and Noémi Salaün
 #+EMAIL: daimrod@gmail.com
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
