@@ -66,7 +66,7 @@ certaines approches qui n'étaient pas intéressantes sur des machines
 mono-CPU, deviennent très intéressantes, car facilement
 parallélisable, sur des machines multi-CPUs.
 
-* KMP et BM
+* Rappel sur KMP et BM
 Comme la plupart des algorithmes de recherche de chaîne, les
 algorithmes KMP et BM effectuent un pré-traitement sur le motif. Le
 but est d'extraire le maximum d'informations afin d'accélérer la
@@ -107,7 +107,44 @@ dans le cas où une occurence partielle a été trouvé, on effectue un
 décalage en utilisant l'approche de l'algorithme KMP. La différence se
 situe dans le cas où deux caractères différents sont trouvés et qu'il
 n'y pas d'occurence partielle. Dans ce cas, on effectue un décallage
-de Sunday (Sunday's shift).
+de Sunday (~Sunday's shift~).
+
+** Variation de Sunday
+Le décallage de Sunday (~Sunday's shift~ en anglais) est une variation
+astucieuse de la règle du mauvais caractère de l'algorithme BM qui a
+été introduit Sunday dans l'algorithme Boyer-Moore-Sunday (BMS).
+
+#+ATTR_LATEX: :align ccccccccccccc
+| T   | a | b | c                | a                  | b                  | d | a | a | c | b | a |
+|-----+---+---+------------------+--------------------+--------------------+---+---+---+---+---+---|
+| P   | b | c | \cellcolor{red}a | \cellcolor{green}a | \cellcolor{green}b |   |   |   |   |   |   |
+| BM  |   | b | c                | a                  | a                  | b |   |   |   |   |   |
+| BMS |   |   |                  |                    |                    |   | b | c | a | a | b | 
+
+Alors que l'algorithme de Boyer-Moore aligne le motif par rapport
+mauvais caractère rencontré, la variation de Sunday utilise le
+caractère situé juste en dehors de la fenêtre actuellement observée.
+C'est ce qui permet d'effectuer un saut si important, car, durant la
+phase de pré-traitement, l'algorithme a remarqué qu'il n'y avait pas
+de 'd' dans le motif, c'est pourquoi il peut décaler le motif de toute
+sa longueur.
+
+** Décalage de Sunday dans FJS
+L'algorithme FJS va donc utiliser la variation de Sunday pour
+effectuer un décalage dans le cas où aucune occurence partielle du
+motif n'a été trouvée. Pour cela, l'algorithme va comparer le dernier
+caractère du motif et, soit effectuer un décalage de Sunday si les
+caractères sont différents, soit appliquer l'algorithme KMP classique
+si les deux caractères correspondent.
+
+** L'algorithme FJS
+
+#+ATTR_LATEX: :align ccccccccccccccc
+| a                   | b                   | a                   | b                   | a                   | a                   | c                  | a                   | b                   | a                   | b                   | a                   | c                   | c                  |
+| \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{orange}c | \cellcolor{green}c |                     |                     |                     |                     |                     |                     |                    |
+|                     |                     | a                   | b                   | a                   | b                   | a                  | c                   | \cellcolor{red}c    |                     |                     |                     |                     |                    |
+|                     |                     |                     |                     |                     |                     |                    | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}c | \cellcolor{green}c |
+
 
 * Présentation et explication des résultats
 
