@@ -1,0 +1,72 @@
+* Expérimentations et résultats
+
+** Comparaison avec les meilleurs algorithmes
+
+*** Les algorithmes utilisés
+
+- Algorithme de Horspool (BMH)
+- Algorithme de Sunday (BMS)
+- Algorithme Reverse Colussi (RC)
+- Algorithme Turbo-BM (TBM)
+
+*** Méthode
+
+- Tous implémentés en C.
+- Tous exécutés sur la même machine.
+- Chaque test exécuté 20 fois et le meilleur temps est conservé.
+
+** Utilisation de 2 corpus
+
+*** Corpus du Project Gutenberd
+
+- Textes libres de droits.
+- 1000 textes sélectionnés parmis 2434.
+- Soit 446 504 073 lettres.
+- Réparties dans des textes de longueur 10 115 à 4 823 268 lettres.
+
+*** Corpus du Human Genome Project
+
+- Extrait contenant uniquement des chaînes d'ADN.
+- Alphabet des nucléotides (A, T, C et G)
+- Traduit en binaire pour faire varier la taille de l'alphabet.
+
+** Résultats sur le corpus Project Gutenberd
+
+*** Méthode
+
+- Motifs plus ou moins fréquents.
+- Variation sur la taille du texte (0 à 2M de lettres).
+- Variation sur la taille du motif (3 à 9 lettres).
+
+*** Résultats
+
+FJS apparait comme étant le plus rapide dans tous les cas, bien que souvent talonné par BMS et RC.
+
+** Résultats sur le corpus Human Genome Project.
+
+*** Méthode
+
+- Variation de taille de l'alphabet (2 à 64 lettres).
+- 20 motifs d'une longueur de 6 lettres sélectionnés aléatoirement dans le corpus.
+
+*** Résultats
+
+- De 0 à 3 : FJS est le moins performant.
+- De 3 à 8 : FJS se situe dans le top 3.
+- De 8 à 16 : FJS, RC et BMS sont quasiment confondus.
+- > 16 : FJS et BMS sont en tête.
+
+** Etudes supplémentaires
+
+*** Le pire cas
+- Texte de forme a^n.
+- Motif de forme aba.
+\rightarrow FJS est quatrième avec un temps moyen d'exécution 41% supérieur à RC.
+
+*** Le motif trouvé partout
+- Texte de forme a^n.
+- Motif de forme a^m.
+\rightarrow FJS donne les meilleurs résultats. Constant même en faisant varier la longueur du motif.
+
+*** Le pire cas spécifique du BM original
+\rightarrow FJS clairement en tête avec un écart qui se creuse lorsque l'on agrandi le motif.
