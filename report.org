@@ -50,18 +50,12 @@ exemple dans le motif "ABCDABD", on remarque que la sous-chaînes "AB"
 se trouve en ~P[1..2]~ et en ~P[5..6]~. Cette information permet de ne
 pas reprendre la recherche à zéro si une comparaison échoue en ~P[7]~.
 
-« more example »
 ** Boyer-Moore
 Bien que le motif avance de gauche à droite, l'algorithme BM compare
 le motif de droite à gauche, contrairement à l'algorithme KMP qui le
 comparait de gauche à droite. Cette particularité permet à
 l'algorithme BM de ne pas avoir à comparer tous les caractères du
 texte dans certain cas.
-
-« more example »
-
-** Conclusion
-
 
 * Présentation de l'algorithme FJS
 L'algorithme FJS est un mixte entre l'algorithme KMP et une variation
