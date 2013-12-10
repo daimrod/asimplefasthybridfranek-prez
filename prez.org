@@ -159,7 +159,7 @@ agrandi le motif.
 - Déterminée : *T*L \rightarrow ATAL ou OTOL
 
 *** Première impression
-Quelques soit le type de recherche choisi, les algorithmes basés sur BM sont souvent les plus performants?
+Quelques soit le type de recherche choisi, les algorithmes basés sur BM sont souvent les plus performants.
 
 ** Gestion des alphabets étendus
 *** Caractère Unicode
