@@ -103,12 +103,34 @@ si les deux caractères correspondent.
 
 ** L'algorithme FJS
 
-#+ATTR_LATEX: :align ccccccccccccccc
-| a                   | b                   | a                   | b                   | a                   | a                   | c                  | a                   | b                   | a                   | b                   | a                   | c                   | c                  |
-| \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{orange}c | \cellcolor{green}c |                     |                     |                     |                     |                     |                     |                    |
-|                     |                     | a                   | b                   | a                   | b                   | a                  | c                   | \cellcolor{red}c    |                     |                     |                     |                     |                    |
-|                     |                     |                     |                     |                     |                     |                    | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}c | \cellcolor{green}c |
+Soit un texte T = "abaccabaac" et un motif P = "abaac", l'algorithme
+FJS se comporte de la manière suivante:
 
+#+ATTR_LATEX: :align c|cccccccccccccc
+|        Indice | 1                        | 2                        | 3                        | 4                   | 5                       | 6                        | 7                        | 8                        | 9                        | 10                      |
+| Étape \ Texte | a                        | b                        | a                        | c                   | c                       | a                        | b                        | a                        | a                        | c                       |
+|---------------+--------------------------+--------------------------+--------------------------+---------------------+-------------------------+--------------------------+--------------------------+--------------------------+--------------------------+-------------------------|
+|             1 | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{orange}a | \cellcolor{OliveGreen}c |                          |                          |                          |                          |                         |
+|             2 |                          |                          | a                        | \cellcolor{orange}b | a                       | a                        | c                        |                          |                          |                         |
+|             3 |                          |                          |                          |                     | a                       | b                        | a                        | a                        | \cellcolor{red}c         |                         |
+|             4 |                          |                          |                          |                     |                         | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}b | \cellcolor{YellowGreen}a | \cellcolor{YellowGreen}a | \cellcolor{OliveGreen}c |
+
+À l'étape 1, on applique l'algorithme KMP classique car le dernier
+caractère du motif correspond au dernier caractère de la fenêtre
+(~T[5]~ = ~P[5]~ en vert foncé). Lorsque l'on trouve deux caractères
+différents (~T[4]~ \neq ~P[4]~ en orange). On utilise le délage de
+l'algorithme KMP qui utilise la table des suffixes propres.
+
+À l'étape suivante, comme on avait une occurence partielle, on retente
+avec l'algorithme KMP, malheuresement, les caractères diffèrent de
+nouveau (~T[4]~ \neq ~P[2]~ en orange).
+
+À l'étape 3, on décale entièrement le motif et l'on tente l'approche
+Sunday. Encore une fois, les caractères diffères (~T[9]~ \neq ~P[5]~ en
+rouge) et un nouveau décalage est effectué.
+
+À l'étape finale, le test de Sunday réussi (~T[10]~ = ~P[5]~) et il en
+va de même pour l'algorithme KMP. On a donc trouvé le motif.
 
 * Présentation et explication des résultats
 
