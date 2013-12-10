@@ -1,0 +1,87 @@
+#+TITLE: A Simple Fast Hybrid Pattern-Matching Algorithm
+#+AUTHOR: Grégoire Jadi \and Noémi Salaün
+#+LaTeX_CLASS: beamer
+#+LANGUAGE: fr
+#+LaTeX_CLASS_OPTIONS: [presentation]
+#+BEAMER_THEME: Madrid
+#+OPTIONS:   H:2 toc:nil
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_envargs(Env Args) %4BEAMER_col(Col) %8BEAMER_extra(Extra)
+#+PROPERTY: BEAMER_col_ALL 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 0.0 :ETC
+#+STARTUP: latexpreview
+#+STARTUP: entitiespretty
+* Introduction
+
+** Introduction
+*** Le problème
+- Un texte T de longueur n.
+- Un motif P de longueur m.
+- Un alphabet \Sigma de taille k.
+
+\rightarrow Rechercher toutes les occurrences de P dans T.
+
+*** Les origines
+- Knuth-Morris-Pratt (1977)
+- Boyer-Moore (1977)
+
+\rightarrow Depuis, plein de variations (BMH, BMG, BMS, KR, ...).
+
+* Rappel de KMP & BM
+** KMP & BM
+*** Knuth-Morris-Pratt
+- O(n)
+- 2n - m comparaisons dans le pire des cas;
+
+*** Boyer-Moore
+- O(n)
+- 3n compaisons dans le pire des cas;
+
+*** En pratique
+BM est souvent plus efficace que KMP.
+
+* FJS
+** L'algorithme FJS
+*** Buts
+- Borne supérieure plus faible que Boyer-Moore.
+- Temps moyen plus faible que Knuth-Morris-Pratt.
+
+*** Comment ?
+- Variation de Sunday (BMS)
+
+** Sunday's shift
+#+ATTR_LATEX: :align c|cccccccccccc
+| T   | a | b | c | a | b | d | a | a | c | b | a |
+|-----+---+---+---+---+---+---+---+---+---+---+---|
+| P   | b | c | a | a | b |   |   |   |   |   |   |
+| BM  |   | b | c | a | a | b |   |   |   |   |   |
+| BMS |   |   |   |   |   |   | b | c | a | a | b |
+
+- BM :: règle du mauvais caractère appliquée au caractère courant;
+- BMS :: règle du mauvais caractère appliquée au caractère en fin de
+         fenêtre;
+
+** L'algorithme FJS
+#+BEGIN_SRC R
+  T = "abaccabaac"
+  P = "abaac"
+  
+  j <- 1; i <- 1; ip <- m
+  while (ip <= n)
+    if j <= 1
+      SUNDAY_SHIFT(ip)
+  
+      j <- 1; i <- ip - m - 1
+      KMP_MATCH(j, i)
+    else
+      KMP_MATCH(j, i)
+    j <- betap(j); ip <- i + m - j
+#+END_SRC
+
+\rightarrow 3n - 2m comparaisons dans le pire des cas;
+* Résultat
+
+* Amélioration et variantes
+
+* Conclusion
+** Mise en perspective par Simone Faro & Thierry Lecroq (2010)
+#+ATTR_LaTeX: :width \linewidth :height \textheight :options keepaspectratio
+[[file:recap.png]]
