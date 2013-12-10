@@ -1,0 +1,20 @@
+*Variantes autour de FJS
+** Gestion des caractères génériques
+*** 2 types de recherches
+- Indéterminée : *T*L \rightarrow ATOL
+- Déterminée : *T*L \rightarrow ATAL ou OTOL
+
+*** Première impression
+Quelques soit le type de recherche choisi, les algorithmes basés sur BM sont souvent les plus performants?
+
+** Gestion des alphabets étendus
+*** Caractère Unicode
+
+- Alphabet de 8 bits gérable.
+- Alphabet sur 16 ou 32 bits compliqué à gérer.
+\rightarrow Le temps de prétraitement du motif devient plus long que le temps de recherche.
+
+*** Solution proposée
+- Réduction de l'alphabet de travail à l'alphabet du motif.
+- Les motifs du texte qui ne sont pas dans l'alphabet ne peuvent pas correspondre.
+- Complexité identique au nouvel alphabet réduit.
