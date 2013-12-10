@@ -54,7 +54,9 @@ Bien que le motif avance de gauche à droite, l'algorithme BM compare
 le motif de droite à gauche, contrairement à l'algorithme KMP qui le
 comparait de gauche à droite. Cette particularité permet à
 l'algorithme BM de ne pas avoir à comparer tous les caractères du
-texte dans certain cas.
+texte dans certain cas en utilisant deux règles:
+- la règle du mauvais caractère;
+- la règle du bon suffixe;
 
 * Présentation de l'algorithme FJS
 L'algorithme FJS est un mixte entre l'algorithme KMP et une variation
@@ -264,11 +266,11 @@ sur un texte entièrement en ASCII.
 
 * Conclusion
 
-Comme dit précédemment, les algorithmes KMP et BM appartiennent à la
-grande famille des algorithmes résolvant le problème de recherche de
-motif. De par leur manière d'aborder ce problème, on dit qu'ils
+Comme expliqué précédemment, les algorithmes KMP et BM appartiennent à
+la grande famille des algorithmes résolvant le problème de recherche
+de motif. De par leur manière d'aborder ce problème, on dit qu'ils
 appartiennent à la sous-famille des algorithmes basés sur la
-reconnaissance de caractères. 
+reconnaissance de caractères.
 
 Les autres approches communément employées sont les algorithmes basés
 sur automates déterministes, et les algorithmes basés sur le
